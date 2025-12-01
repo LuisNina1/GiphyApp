@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { Gif } from "../interface/gif.interface";
 import type { GiphyResponse } from "../interface/giphy.response";
 import { giphyApi } from "../api/giphy.api";
