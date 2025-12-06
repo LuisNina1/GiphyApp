@@ -7,9 +7,10 @@ import type { Gif } from "../interface/gif.interface"
 export const useGifs = () => {
 
     const [gifs, setGifs] = useState<Gif[]>([])
+    const [previousTerms, setPreviousTerms] = useState<string[]>([])
+    
     const gifsCache = useRef<Record<string, Gif[]>>({})
 
-    const [previousTerms, setPreviousTerms] = useState(["goku"])
     const handleTermClicked = async (term: string) => {
         if (gifsCache.current[term]) {
             setGifs(gifsCache.current[term])
@@ -18,6 +19,7 @@ export const useGifs = () => {
         const gifs = await getGifsByQuery(term);
         gifsCache.current[term] = gifs
         setGifs(gifs)
+        //console.log(gifsCache)
     }
     const handleSearch = async (query: string) => {
         query = query.trim().toLocaleLowerCase();
@@ -34,7 +36,7 @@ export const useGifs = () => {
         const gifs = await getGifsByQuery(query);
         setGifs(gifs)
         gifsCache.current[query] = gifs;
-        console.log(gifsCache)
+        //console.log(gifsCache)
     }
 
     return { gifs, handleSearch, handleTermClicked, previousTerms }
